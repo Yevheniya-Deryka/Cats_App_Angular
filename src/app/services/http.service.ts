@@ -10,10 +10,13 @@ import { APIResponse, Breed, Cat } from '../models';
 export class HttpService {
   constructor(private http: HttpClient) {}
 
-  getCatsList(limit: number, breed_ids?: string): Observable<APIResponse<Cat>> {
+  getCatsList(
+    limit?: number | null,
+    breed?: string | null
+  ): Observable<APIResponse<Cat>> {
     const params = new HttpParams()
-      .set('breed_ids', breed_ids || '')
-      .set('limit', limit);
+      .set('breed_ids', breed || '')
+      .set('limit', limit || 10);
 
     return this.http.get<APIResponse<Cat>>(`${env.BASE_URL}images/search`, {
       params: params,
