@@ -1,17 +1,21 @@
-<form [formGroup]="searchCatsForm" (ngSubmit)="onSubmit()">
-  <mat-form-field appearance="fill">
+<form
+  [formGroup]="searchCatsForm"
+  (ngSubmit)="onSubmit()"
+  class="form"
+>
+  <mat-form-field appearance="outline" class="form__item">
     <mat-label>What breed to show?</mat-label>
     <mat-select formControlName="breed">
       <mat-option value="">
         All breeds
       </mat-option>
-      <mat-option *ngFor="let breed of breeds" [value]="breed.id">
+      <mat-option *ngFor="let breed of breeds$ | async" [value]="breed.id">
         {{breed.name}}
       </mat-option>
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="outline" class="form__item">
     <mat-label>How many cats to show?</mat-label>
     <mat-select formControlName="amount">
       <mat-option *ngFor="let numb of limit" [value]="numb">
@@ -20,12 +24,14 @@
     </mat-select>
   </mat-form-field>
 
-  <button mat-raised-button color="accent">Show cats!</button>
+  <button mat-raised-button color="accent" class="form__item form__button">
+    Show cats!
+  </button>
 </form>
 
-<div *ngIf="cats.length" class="cat__container">
-  <div *ngFor="let cat of cats">
-    <mat-card class="cat__card">
+<div *ngIf="cats$" class="cat__container">
+  <div *ngFor="let cat of cats$ | async">
+    <mat-card appearance="raised" class="cat__card">
       <mat-card-header></mat-card-header>
       <mat-card-content>
         <img [src]="cat.url" mat-card-image class="cat__image">
