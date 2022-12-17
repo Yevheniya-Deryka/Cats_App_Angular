@@ -1,9 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Breed } from 'src/app/models';
-import { HttpService } from 'src/app/services/http.service';
-import { invokeCatsAPI } from '../../store/cats.action';
 import { selectCats } from '../../store/cats.selector';
 
 @Component({
@@ -11,38 +7,8 @@ import { selectCats } from '../../store/cats.selector';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
-  public limit = [10, 16, 20, 24];
-  public defaultLimit = this.limit[0];
-
-  public breeds: Breed[] = [];
-  public defaultBreed = '';
-
+export class HomeComponent {
   cats$ = this.store.select(selectCats);
 
-  constructor(private httpService: HttpService, private store: Store) {}
-
-  ngOnInit(): void {
-    this.getBreeds();
-  }
-
-  searchCatsForm = new FormGroup({
-    breed: new FormControl(this.defaultBreed),
-    amount: new FormControl(this.defaultLimit)
-  });
-
-  onSubmit() {
-    this.store.dispatch(
-      invokeCatsAPI({
-        limit: this.searchCatsForm.value.amount,
-        breed: this.searchCatsForm.value.breed
-      })
-    );
-  }
-
-  getBreeds() {
-    this.httpService.getBreedsList().subscribe((breedsList) => {
-      this.breeds = breedsList;
-    });
-  }
+  constructor(private store: Store) {}
 }

@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { SearchFormComponent } from './components/search-form/search-form.component';
 import { HomeComponent } from './components/home/home.component';
 import { MatCardModule } from '@angular/material/card';
 import { EffectsModule } from '@ngrx/effects';
@@ -18,7 +19,7 @@ import { CatsEffect } from './store/cats.effect';
 import { reducers } from './store/reducers';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent, SearchFormComponent, HomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
