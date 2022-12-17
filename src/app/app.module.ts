@@ -13,11 +13,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
 import { MatCardModule } from '@angular/material/card';
 import { EffectsModule } from '@ngrx/effects';
-import { BreedsEffect } from './store/breeds.effect';
 import { StoreModule } from '@ngrx/store';
-import { breedReducer } from './store/breeds.reducer';
-import { catReducer } from './store/cats.reducer';
 import { CatsEffect } from './store/cats.effect';
+import { reducers } from './store/reducers';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
@@ -33,12 +31,8 @@ import { CatsEffect } from './store/cats.effect';
     MatSelectModule,
     HttpClientModule,
     MatCardModule,
-    StoreModule.forRoot({}),
-    EffectsModule.forRoot([]),
-    StoreModule.forFeature('breeds', breedReducer),
-    StoreModule.forFeature('cats', catReducer),
-    EffectsModule.forFeature([BreedsEffect]),
-    EffectsModule.forFeature([CatsEffect])
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([CatsEffect])
   ],
   providers: [],
   bootstrap: [AppComponent]

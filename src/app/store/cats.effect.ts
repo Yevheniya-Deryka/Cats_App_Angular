@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType, concatLatestFrom } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { map, mergeMap, withLatestFrom } from 'rxjs';
+import { map, mergeMap } from 'rxjs';
 import { HttpService } from '../services/http.service';
 import { catsFetchAPISuccess, invokeCatsAPI } from '../store/cats.action';
 import { selectCats } from '../store/cats.selector';
@@ -17,7 +17,7 @@ export class CatsEffect {
   loadAllBreeds$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(invokeCatsAPI),
-      withLatestFrom(this.store.select(selectCats)),
+      concatLatestFrom(() => this.store.select(selectCats)),
       mergeMap(([action]) => {
         return this.HttpService.getCatsList(action.limit, action.breed).pipe(
           map((data) => catsFetchAPISuccess({ allCats: data }))

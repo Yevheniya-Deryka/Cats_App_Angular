@@ -1,4 +1,9 @@
-import { createFeatureSelector } from '@ngrx/store';
-import { Cat } from '../models';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { CatState } from '../app.states';
 
-export const selectCats = createFeatureSelector<Cat[]>('cats');
+const selectCatsState = createFeatureSelector<CatState>('catState');
+
+export const selectCats = createSelector(
+  selectCatsState,
+  (state: CatState) => state.cats
+);

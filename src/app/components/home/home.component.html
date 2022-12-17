@@ -9,7 +9,7 @@
       <mat-option value="">
         All breeds
       </mat-option>
-      <mat-option *ngFor="let breed of breeds$ | async" [value]="breed.id">
+      <mat-option *ngFor="let breed of breeds" [value]="breed.id">
         {{breed.name}}
       </mat-option>
     </mat-select>

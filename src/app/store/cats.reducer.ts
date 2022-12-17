@@ -1,12 +1,12 @@
 import { createReducer, on } from '@ngrx/store';
-import { Cat } from '../models';
+import { CatState } from '../app.states';
 import { catsFetchAPISuccess } from '../store/cats.action';
 
-export const initialState: ReadonlyArray<Cat> = [];
+export const initialState: CatState = { cats: [] };
 
 export const catReducer = createReducer(
   initialState,
-  on(catsFetchAPISuccess, (state, { allCats }): Cat[] => {
-    return allCats;
+  on(catsFetchAPISuccess, (state, { allCats }): CatState => {
+    return { cats: allCats };
   })
 );
